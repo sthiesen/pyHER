@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyher"
+version = "0.1.0"
+description = "Python port of HERs (histogram via entropy reduction, with sequential simulation) from KIT-HYD/HERs"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Stephanie Thiesen" }]
+keywords = ["geostatistics", "entropy", "uncertainty", "histogram via entropy reduction", "HER"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+]
+requires-python = ">=3.11"
+dependencies = ["numpy", "scipy", "h5py", "pyshp"]
+
+[project.urls]
+Repository = "https://github.com/sthiesen/pyHER"
+
+[project.optional-dependencies]
+plot = ["matplotlib"]
+dev = ["pytest", "ruff"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: slower tests (long optimisations or simulations); skip with -m 'not slow'"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]
+"examples/*" = ["E501", "E702", "E731", "E741"]  # exploratory scripts
+
+[tool.ruff.lint.isort]
+known-first-party = ["pyher"]
